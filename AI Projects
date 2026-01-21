@@ -1,0 +1,10 @@
+ <div class="sectionTitle">
+  <h2>Projects</h2>
+  <span>numbered case studies</span>
+</div>
+
+<p class="sub">
+  Each project below represents a real system built and operated in production.
+  I document context, constraints, execution approach, and outcomes.
+</p>
+
