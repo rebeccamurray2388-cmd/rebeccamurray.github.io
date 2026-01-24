@@ -3,43 +3,415 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>rebeccamurray.github.io — Project Portfolio</title>
-  <meta name="description" content="Project portfolio documenting real onboarding, activation, and enablement systems built and operated in production." />
+  <title>Rebecca Murray — Project Portfolio</title>
+  <meta name="description" content="Project portfolio of activation, onboarding, enablement, and creative systems built and operated in production." />
+
+  <!-- Free fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1a2b;
+      --panel2:#0c1626;
+      --text:#e9eef7;
+      --muted:#b6c2d6;
+      --line:rgba(255,255,255,.10);
+      --accent:#7dd3fc;
+      --accent2:#a78bfa;
+      --shadow: 0 14px 38px rgba(0,0,0,.40);
+      --radius:18px;
+      --max: 1040px;
+      --sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      --serif: "Source Serif 4", ui-serif, Georgia, serif;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1100px 580px at 18% -10%, rgba(125,211,252,.18), transparent 60%),
+        radial-gradient(1000px 520px at 92% 0%, rgba(167,139,250,.15), transparent 58%),
+        var(--bg);
+      line-height:1.55;
+    }
+
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:.92}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:34px 18px 60px;}
+
+    header{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(15,26,43,.58);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .top{
+      display:flex;
+      gap:18px;
+      padding:18px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+
+    .headshot{
+      width:132px; height:132px;
+      border-radius: 18px;
+      border:1px solid var(--line);
+      background: rgba(12,22,38,.75);
+      overflow:hidden;
+      flex: 0 0 auto;
+      display:flex; align-items:center; justify-content:center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .headshot img{width:100%; height:100%; object-fit:cover; display:block;}
+
+    .titleBlock{flex:1 1 520px; min-width: 320px;}
+
+    .name{
+      margin:0;
+      font-size: 46px;
+      line-height:1.05;
+      letter-spacing:-.9px;
+    }
+    .accent{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+
+    .position{
+      margin:10px 0 0;
+      color: var(--muted);
+      max-width: 92ch;
+      font-size: 15.5px;
+      font-family: var(--serif);
+    }
+    .position b{color:var(--text); font-family: var(--sans); font-weight:800}
+
+    .kpiRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .chip{
+      font-size:12px;
+      color:var(--muted);
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(12,22,38,.9);
+      border:1px solid var(--line);
+      font-weight:600;
+    }
+
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(15,26,43,.55);
+      font-weight:800;
+      color:var(--text);
+    }
+    .btn.primary{
+      border-color: rgba(125,211,252,.55);
+      background: linear-gradient(180deg, rgba(125,211,252,.16), rgba(15,26,43,.55));
+    }
+    .btn.small{padding:8px 10px; font-size: 13px}
+
+    nav{
+      display:flex;
+      gap:0;
+      background: rgba(10,18,32,.68);
+      border-top: 1px solid var(--line);
+    }
+    nav button{
+      flex:1;
+      padding: 12px 12px;
+      background: transparent;
+      border:0;
+      color: var(--muted);
+      font-weight: 900;
+      cursor:pointer;
+      font-family: var(--sans);
+    }
+    nav button.active{
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(125,211,252,.14), rgba(10,18,32,.20));
+      box-shadow: inset 0 0 0 1px rgba(125,211,252,.25);
+    }
+
+    main{
+      margin-top: 18px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(15,26,43,.45);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .section{display:none; padding: 20px;}
+    .section.active{display:block;}
+
+    .subhead{
+      display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+      margin: 0 0 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .subhead h2{margin:0; font-size:18px}
+    .subhead span{color:var(--muted); font-size:12px; font-weight:650}
+
+    .cards{display:grid; gap:14px;}
+    @media(min-width:860px){ .cards{grid-template-columns: 1fr 1fr;} }
+
+    .card{
+      padding: 16px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(12,22,38,.75);
+    }
+    .card h3{margin:0 0 8px; font-size:15px}
+    .card p{margin:0; color:var(--muted); font-family: var(--serif);}
+
+    .proj{display:grid; gap:14px;}
+    .projCard{
+      padding: 16px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(12,22,38,.75);
+    }
+    .projTop{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+    .projName{margin:0; font-size:16px; font-weight:900}
+    .meta{color:var(--muted); font-size:12px; font-weight:650}
+    ul{margin:10px 0 0 18px}
+    li{margin:6px 0; color:var(--muted); font-family: var(--serif);}
+    li b{color:var(--text); font-family: var(--sans); font-weight:900}
+
+    .note{color:var(--muted); font-size:13px; margin-top:10px}
+    .footer{margin-top: 14px; color: var(--muted); font-size:12px}
+    .divider{height:1px; background: var(--line); margin: 14px 0;}
+  </style>
 </head>
 
-<body style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; padding: 48px; max-width: 920px; margin: 0 auto; line-height: 1.5;">
-  <header style="margin-bottom: 32px;">
-    <h1 style="margin: 0 0 10px;">rebeccamurray.github.io</h1>
-    <p style="margin: 0; color: #444;">
-      A project portfolio documenting real onboarding, activation, and enablement systems built and operated in production.
-    </p>
-  </header>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="top">
+        <div class="headshot">
+          <!-- Upload a file named headshot.jpg to repo root -->
+          <img src="headshot.jpg" alt="Rebecca Murray headshot"
+               onerror="this.remove(); this.parentElement.textContent='Upload headshot.jpg';" />
+        </div>
 
-  <section>
-    <h2 style="margin: 0 0 10px;">Projects</h2>
-    <p style="margin: 0 0 18px; color: #444;">
-      Each project outlines context, constraints, execution approach, and outcomes.
-    </p>
+        <div class="titleBlock">
+          <h1 class="name">Rebecca <span class="accent">Murray</span></h1>
 
-    <ol style="padding-left: 20px;">
-      <li style="margin-bottom: 14px;">
-        <strong>01 — Managed Onboarding (Enterprise Activation System)</strong><br />
-        Built an end-to-end onboarding system to reduce time-to-value and improve activation consistency.
-      </li>
-      <li style="margin-bottom: 14px;">
-        <strong>02 — Authorized Trainer Rollout (Badging + LMS Pathway)</strong><br />
-        Designed standards and enablement pathways to scale partner-led delivery while maintaining quality.
-      </li>
-      <li style="margin-bottom: 14px;">
-        <strong>03 — GSI High-Velocity Enablement Programs</strong><br />
-        Built cohort training and readiness tracking to support global SI delivery teams across regions.
-      </li>
-    </ol>
-  </section>
+          <p class="position">
+            <b>Senior IC</b> building onboarding, activation, and enablement systems for data platforms and AI-adjacent orgs.
+            I optimize for <b>time-to-value</b>, <b>activation quality</b>, and <b>scale</b>—real systems in production, not slideware.
+          </p>
 
-  <footer style="margin-top: 48px; color: #777; font-size: 14px;">
-    © Rebecca Murray
-  </footer>
+          <div class="kpiRow">
+            <span class="chip">200+ direct onboardings delivered</span>
+            <span class="chip">600+ scaled via program design</span>
+            <span class="chip">AMER • EMEA • APJ</span>
+            <span class="chip">systems > vibes</span>
+          </div>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="#projects" onclick="setTab('projects'); return false;">View projects</a>
+
+            <!-- Fill these in -->
+            <a class="btn" href="mailto:YOUR_EMAIL">YOUR_EMAIL</a>
+            <a class="btn" href="https://www.linkedin.com/in/YOUR_HANDLE" target="_blank" rel="noreferrer">LinkedIn</a>
+
+            <!-- Upload Resume.pdf to repo root -->
+            <a class="btn" href="Resume.pdf" target="_blank" rel="noreferrer">Resume (PDF)</a>
+          </div>
+
+          <div class="note">Want the clean URL later? Point projects.rebeccamurray.com here. Hosting stays free.</div>
+        </div>
+      </div>
+
+      <nav aria-label="Sections">
+        <button id="tab-about" class="active" onclick="setTab('about')">About</button>
+        <button id="tab-projects" onclick="setTab('projects')">Projects</button>
+        <button id="tab-resume" onclick="setTab('resume')">Resume</button>
+        <button id="tab-contact" onclick="setTab('contact')">Contact</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ABOUT -->
+      <section id="about" class="section active">
+        <div class="subhead">
+          <h2>About</h2>
+          <span>how I work</span>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Builder mindset</h3>
+            <p>I take ambiguous, cross-functional problems and turn them into repeatable systems with ownership, metrics, and governance.</p>
+          </div>
+          <div class="card">
+            <h3>Enterprise reality</h3>
+            <p>Multi-stakeholder environments, regulated constraints, high standards—this is where I do my best work.</p>
+          </div>
+          <div class="card">
+            <h3>Execution standard</h3>
+            <p>I ship: tight scopes, clean handoffs, and measurable outcomes. No performative process.</p>
+          </div>
+          <div class="card">
+            <h3>Hiring fit</h3>
+            <p>Senior IC roles in activation, engagement, enablement, partner programs, or platform programs—where systems actually matter.</p>
+          </div>
+        </div>
+
+        <div class="footer">This portfolio is intentionally outcome-focused. Titles change. Systems endure.</div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="section">
+        <div class="subhead">
+          <h2>Projects</h2>
+          <span>numbered case studies</span>
+        </div>
+
+        <div class="proj">
+          <article class="projCard">
+            <div class="projTop">
+              <p class="projName">01 — Managed Onboarding (Enterprise Activation System)</p>
+              <div class="meta">Program Owner • System Design • Delivery Ops</div>
+            </div>
+            <ul>
+              <li><b>Context:</b> Enterprise customers needed a structured activation path to reach value quickly.</li>
+              <li><b>Problem:</b> Quality and timelines varied across customers and delivery teams.</li>
+              <li><b>Approach:</b> Built end-to-end onboarding system: intake → milestones → enablement → QA gates.</li>
+              <li><b>Outcome:</b> Delivered <b>200+</b> onboardings personally; scaled the system to <b>600+</b> via program design.</li>
+            </ul>
+          </article>
+
+          <article class="projCard">
+            <div class="projTop">
+              <p class="projName">02 — Authorized Trainer Rollout (Badging + LMS Pathway)</p>
+              <div class="meta">Enablement Systems • Governance • Scale</div>
+            </div>
+            <ul>
+              <li><b>Context:</b> Partner-led delivery needed to scale without degrading the customer experience.</li>
+              <li><b>Problem:</b> No consistent readiness standards, eligibility, or quality controls.</li>
+              <li><b>Approach:</b> Built eligibility criteria, badging framework, and LMS pathways with clear governance.</li>
+              <li><b>Outcome:</b> Increased partner delivery capacity while maintaining activation standards and program integrity.</li>
+            </ul>
+          </article>
+
+          <article class="projCard">
+            <div class="projTop">
+              <p class="projName">03 — GSI High-Velocity Enablement Programs</p>
+              <div class="meta">Training Ops • Partner Enablement • Metrics</div>
+            </div>
+            <ul>
+              <li><b>Context:</b> Global SIs required rapid ramp across regions to meet enterprise demand.</li>
+              <li><b>Problem:</b> Readiness signals and consistency were hard to measure at scale.</li>
+              <li><b>Approach:</b> Designed cohort enablement + readiness tracking (certs, vouchers, outcomes, throughput).</li>
+              <li><b>Outcome:</b> Improved visibility into partner readiness and increased throughput across AMER/EMEA/APJ.</li>
+            </ul>
+          </article>
+
+          <article class="projCard">
+            <div class="projTop">
+              <p class="projName">04 — Hexed & Hooped (Creative Systems + Productized Craft)</p>
+              <div class="meta">Brand Ops • Production Workflow • Digital Products</div>
+            </div>
+            <ul>
+              <li><b>Context:</b> Built an independent creative brand spanning physical goods and digital products.</li>
+              <li><b>Problem:</b> Creative work doesn’t scale without process (intake, production, QA, fulfillment, launches).</li>
+              <li><b>Approach:</b> Designed lightweight systems for commissions intake, batch planning, asset management, and release cadence.</li>
+              <li><b>Outcome:</b> Consistent output across physical + digital offerings while maintaining quality and brand coherence.</li>
+            </ul>
+            <div class="note">Optional later: add a single outbound link to Instagram/Etsy without cluttering the professional narrative.</div>
+          </article>
+        </div>
+
+        <div class="footer">Next: we can deepen each project with “receipts” (templates, process maps, artifacts) without bloating the page.</div>
+      </section>
+
+      <!-- RESUME -->
+      <section id="resume" class="section">
+        <div class="subhead">
+          <h2>Resume</h2>
+          <span>download + highlights</span>
+        </div>
+
+        <div class="card">
+          <h3>Download</h3>
+          <p>Upload a file named <b>Resume.pdf</b> to this repo and the button works instantly.</p>
+          <div class="ctaRow">
+            <a class="btn primary" href="Resume.pdf" target="_blank" rel="noreferrer">Open Resume.pdf</a>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="card">
+          <h3>Highlights</h3>
+          <ul>
+            <li><b>Delivered</b> 200+ enterprise onboardings directly; built systems scaling to 600+ globally.</li>
+            <li><b>Operationalized</b> governance + standards to scale partner-led delivery without quality drift.</li>
+            <li><b>Built</b> readiness tracking across certifications, vouchers, throughput, and outcomes.</li>
+            <li><b>Led</b> cross-functional programs without formal authority—through clarity and execution.</li>
+            <li><b>Productized</b> creative workflows for Hexed & Hooped (intake → production → QA → launch cadence).</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section">
+        <div class="subhead">
+          <h2>Contact</h2>
+          <span>make it easy</span>
+        </div>
+
+        <div class="card">
+          <h3>Fastest path</h3>
+          <p>Email me with the role + the problem you’re hiring to solve. I’ll reply with clarity and speed.</p>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="mailto:YOUR_EMAIL">YOUR_EMAIL</a>
+            <a class="btn" href="https://www.linkedin.com/in/YOUR_HANDLE" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn" href="https://github.com/rebeccamurray2388-cmd" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+
+          <div class="note">Hosting is free via GitHub Pages. Custom domain later is just DNS + a CNAME file.</div>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer">Last updated <span id="date"></span></div>
+  </div>
+
+  <script>
+    function setTab(id){
+      const sections = ["about","projects","resume","contact"];
+      sections.forEach(s => {
+        document.getElementById(s).classList.toggle("active", s===id);
+        document.getElementById("tab-"+s).classList.toggle("active", s===id);
+      });
+      history.replaceState(null, "", "#"+id);
+    }
+    const hash = (location.hash || "#about").replace("#","");
+    if(["about","projects","resume","contact"].includes(hash)) setTab(hash);
+
+    document.getElementById("date").textContent =
+      new Date().toLocaleDateString(undefined, {year:"numeric", month:"short", day:"numeric"});
+  </script>
 </body>
 </html>
-<!-- redeploy -->
